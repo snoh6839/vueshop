@@ -1,5 +1,6 @@
 <template>
-    <img alt="Vue logo" src="./assets/logo.png" style="width:100px; height: 40px;">
+  
+    
   <nav>
         <ul>
           <li><a>홈</a></li>
@@ -11,10 +12,11 @@
 
 <script>
 export default {
-
+  // components: { navi },
+  name:  'NaviCom',
 }
 </script>
 
 <style>
-@import url('./assets/css/style.css');
+/* @import url('./assets/css/style.css'); */
 </style>
