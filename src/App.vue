@@ -46,8 +46,8 @@
       </div>
     </div> -->
     <div class="eventBox">
-      <h2 class="discount" v-if="appearDiscount"> 지금 구매 하시면 20% 할인 </h2>
-      <button style="width: 150px;" @click="appearDiscount = !appearDiscount">구매 이벤트</button>
+      <h2 class="discount" v-if="appearDiscount"> 지금 구매 하시면 {{ currentDiscount }}% 할인 </h2>
+      <button style="width: 150px;" @click="startCountdown">구매 이벤트</button>
     </div>
     <ProductList 
     :product="product" v-for="(product, i) in products" :key="i" 
@@ -92,8 +92,13 @@
       modalFlag: false,
       inputTest: '',
       appearDiscount: false,
+      currentDiscount: 30,
+      countdownTimer: null
     }
   },
+  // updated(){
+  // this.flag = true;
+  // },
   watch: {
     inputTest(input) {
       if (input == 3) {
@@ -117,6 +122,23 @@
       this.modalFlag = true;
       this.proNum = i;
     },
+    startCountdown() {
+      if (!this.appearDiscount) {
+        this.appearDiscount = true;
+
+        this.countdownTimer = setInterval(() => {
+          if (this.currentDiscount > 0) {
+            this.currentDiscount--;
+          } else {
+            clearInterval(this.countdownTimer);
+          }
+        }, 1000); // 1초 간격
+      } else {
+        this.appearDiscount = false;
+        clearInterval(this.countdownTimer);
+        // this.currentDiscount = 30;
+      }
+    }
   },
   components: { NaviCom, ProductList, Modal },
 }
